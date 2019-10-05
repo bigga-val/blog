@@ -1,10 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% load static %}
+<div class="container">
+    <div class="row">
+        <!--div class="col-sm-3 bg-dark">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="title_recent">
+                        <h3 class="recent_post">Article recent</h3>
+                    </div>
+                    <div class="component_recent">
+                        <a href="#">fdfjh gf kjhkgj gjghjg jvhn fiujei ndjaioef jfkdf</a>
+                    </div>
+                    <div class="component_recent">
+                        <a href="#">fdfjh gf kjhkgj gjghjg jvhn fiujei ndjaioef jfkdf</a>
+                    </div>
+                    <div class="component_recent">
+                        <a href="#">fdfjh gf kjhkgj gjghjg jvhn fiujei ndjaioef jfkdf</a>
+                    </div>
+                    <div class="component_recent">
+                        <a href="#">fdfjh gf kjhkgj gjghjg jvhn fiujei ndjaioef jfkdf</a>
+                    </div>
+
+                </div>
+            </div>
+        </div-->
+        <div class="col-sm-9 bg-link">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="title_article_active">
+                        <h3>Titre article active</h3>
+                    </div>
+                    <div class="meta_article_active">
+                        <span><i><u>Author</u>, <u>Date</u>, <u>Categorie</u> </i></span>
+                    </div>
+                    <div class="img_for_article">
+                        <img src="{% static 'img/back1.jpg'%}" alt="img for article" class="rounded img-fluid">
+                        <p class="legend">legende de l'image</p>
+                    </div>
+                    <div class="body_article_active">
+                        <p>
+                            First example: create a row . Then, add the desired number of columns (tags with appropriate .col-*-* classes).
+                        The first star (*) represents the responsiveness: sm, md, lg or xl, while the second star represents a number, which should add up
+                        to 12 for each row. Second example: instead of adding a number to each col, let bootstrap handle the layout, to
+                        create equal width columns: two "col" elements = 50% width to
+                        each col. three cols = 33.33% width to each col. four cols = 25% width, etc. You can also use .col-sm|md|lg|xl
+                        to make the columns responsive.
+                        Below we have collected some examples of basic Bootstrap 4 grid layouts.
+                        </p>
+                        <p>
+                            First example: create a row . Then, add the desired number of columns (tags with appropriate .col-*-* classes).
+                        The first star (*) represents the responsiveness: sm, md, lg or xl, while the second star represents a number, which should add up
+                        to 12 for each row. Second example: instead of adding a number to each col, let bootstrap handle the layout, to
+                        create equal width columns: two "col" elements = 50% width to
+                        each col. three cols = 33.33% width to each col. four cols = 25% width, etc. You can also use .col-sm|md|lg|xl
+                        to make the columns responsive.
+                        Below we have collected some examples of basic Bootstrap 4 grid layouts.
+                        </p>
+                        <p>
+                            First example: create a row . Then, add the desired number of columns (tags with appropriate .col-*-* classes).
+                        The first star (*) represents the responsiveness: sm, md, lg or xl, while the second star represents a number, which should add up
+                        to 12 for each row. Second example: instead of adding a number to each col, let bootstrap handle the layout, to
+                        create equal width columns: two "col" elements = 50% width to
+                        each col. three cols = 33.33% width to each col. four cols = 25% width, etc. You can also use .col-sm|md|lg|xl
+                        to make the columns responsive.
+                        Below we have collected some examples of basic Bootstrap 4 grid layouts.
+                        </p>
+                    </div>
+
+                        <div class="card my-3">
+                            <div class="card-header"><span>UserName </span><i> a ecrit, il y a Datetime</i></div>
+                            <div class="card-body"><p> le body du commentaire</p></div>
+                        </div>
+
+                    <div class="border border-primary rounded py-3 px-3 mb-5">
+                        <form action="#" class="stacked">
+                            <label for="#" class="mr-sm-2">Laisser un commentaire</label>
+                            <input type="hidden" class="form-control">
+                            <input type="text" class="form-control my-2" placeholder="Tapez votre pseudo">
+                            <input type="text" class="form-control my-2" placeholder="Taper votre commentaire">
+                            <input type="submit" class="btn btn-primary my-2 ">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 bg-secondary">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="for_meteo">
+                        <a href="#">Meteo</a>
+                    </div>
+                    <div class="for_maps">
+                        <a href="#">Google Maps</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

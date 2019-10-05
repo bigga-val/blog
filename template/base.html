@@ -1,10 +1,31 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'bootstrap.css' %}">
 </head>
 <body>
-$END$
+
+        {% block header %}
+
+            {% endblock %}
+        {% block precontent %}
+
+            {% endblock %}
+        {% block content %}
+
+            {% endblock %}
+        {% block prefooter %}
+
+            {% endblock %}
+        {% block footer %}
+
+            {% endblock %}
+    </div>
+</div>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    <script src="{% static 'dropdown.js' %}"></script>
 </body>
 </html>
