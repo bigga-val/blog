@@ -1,42 +1,67 @@
+from __future__ import unicode_literals
 from django.db import models
 from datetime import date
 from django import forms
+from django.contrib.auth.base_user import AbstractBaseUser
 
 class Roles(models.Model):
     name = models.CharField(max_length=20, unique=True)
     active = models.BooleanField(default=True)
 
-class Users(models.Model):
+    def __str__(self):
+        return str(self.id)
+
+class Users(AbstractBaseUser):
     firstname = models.CharField(max_length=20)
     lastname = models.CharField(max_length=20)
-    role = models.ForeignKey(Roles, on_delete=models.CASCADE())
+    role = models.ForeignKey(Roles, on_delete=models.CASCADE)
     gender = models.CharField(max_length=1)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=15)
     image = models.ImageField(null=True)
     adhesion_date = models.DateField()
-    active = models.BooleanField(default=True, required=False)
+    password = models.CharField(max_length=30, null=False, default='article')
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.id)
 
 class Categories(models.Model):
     name = models.CharField(max_length=20, unique=True)
     active = models.BooleanField(default=True)
 
+    def __str__(self):
+        return str(self.id)
+
 class Articles(models.Model):
-    user = models.ForeignKey(Users, unique=True)
-    categorie = models.ManyToManyField(Categories)
+    user = models.ForeignKey(Users, on_delete=models.PROTECT)
+    categorie = models.ForeignKey(Categories, on_delete=models.PROTECT, default=1)
     title = models.CharField(max_length=100)
     content = models.TextField()
+    image_article = models.ImageField
     creation_date = models.DateTimeField(auto_now_add=True)
     type = models.CharField(max_length=10, default = 'opened') #opened or closed
     active = models.BooleanField(default=True)
 
+    def __str__(self):
+        return str(self.id)
+
 class Commentaires(models.Model):
-    user = models.ForeignKey(Users)
-    pseudo = models.CharField(max_length=20)
-    article = models.ForeignKey(Articles)
-    commentaire = models.CharField(max_length=1000)
+    user = models.ForeignKey(Users, on_delete=models.PROTECT)
+    pseudo = models.CharField(max_length=20, null = True, default="anonyme")
+    create_date = models.DateTimeField(auto_now_add=True)
+    article = models.ForeignKey(Articles, on_delete=models.PROTECT)
+    commentaire = models.TextField()
+
+
+    def __str__(self):
+        return str(self.id)
 
 class Newsletter(models.Model):
     mail = models.EmailField()
     inscription_date = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
+
+
+    def __str__(self):
+        return str(self.id)

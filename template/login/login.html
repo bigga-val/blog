@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col rounded my-5 border border-success py-3 px-3">
+            <form action="login_user" method="post">
+                {% csrf_token %}
+                {% if messages %}
+                    {% for m in messages %}
+                        {[ m ]}
+                    {% endfor %}
+                {% endif %}
+                <div class="form-group">
+                    <label for="usn">Username:</label>
+                    <input type="text" class="form-control" name="usn">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input type="password" class="form-control" name="pwd">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success" value="Log in">
+                </div>
+            </form>
+                <div class="form-group">
+                    <label for="">Or</label>
+                    <a href="#">Sign in</a>
+                </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>
