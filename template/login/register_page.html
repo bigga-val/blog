@@ -9,21 +9,27 @@
 </head>
 <body>
 <div class="container">
-    <div class="row">
-        <div class="col-sm-8 bg-success">
-            dfsdfsdf
+    <div class="row"
+        style="backbround: transparent url('static/img/back.') no repeat center center /cover">
+        <div class="col-sm-8" >
+
         </div>
         <div class="col-sm-4 %}">
             <div class="row">
                 <div class="col-sm-12">
-                    <form action="register" method="post">
+                    <form action="/register" method="post">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-sm-12">
+                                {% if messages %}
+                                    {% for msg in messages %}
+                                        <div class="form-group"><p class="text-danger text-align-left">{{ msg }}</p></div>
+                                    {% endfor %}
+                                {% endif %}
                                 <div class="form-group">
                                     <label for="">Nom</label>
-                                    <input type="hidden" value="visiteur" name="role" class="form-control">
-                                    <input type="text" class="form-control" name="nom">
+                                    <input type="hidden" value="5" name="role" class="form-control">
+                                    <input type="text" class="form-control" name="nomf">
                                 </div>
                                 <div class="form-group">
                                     <label for="">Postnom</label>
@@ -31,7 +37,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="">Genre</label>
-                                    <select name="gender" id="" class="form-control">
+                                    <select name="sexe" id="" class="form-control">
                                         <option value="M" selected>Masculin</option>
                                         <option value="F">Feminin</option>
                                     </select>

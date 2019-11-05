@@ -15,8 +15,8 @@
             <form action="login_user" method="post">
                 {% csrf_token %}
                 {% if messages %}
-                    {% for m in messages %}
-                        {[ m ]}
+                    {% for msg in messages %}
+                        <div class="form-group"><p class="text-danger text-align-left">{{ msg }}</p></div>
                     {% endfor %}
                 {% endif %}
                 <div class="form-group">
@@ -33,7 +33,7 @@
             </form>
                 <div class="form-group">
                     <label for="">Or</label>
-                    <a href="#">Sign in</a>
+                    <a href="register_page">Sign in</a>
                 </div>
         </div>
         <div class="col"></div>

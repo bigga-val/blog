@@ -49,7 +49,6 @@ class Articles(models.Model):
 
 class Commentaires(models.Model):
     user = models.ForeignKey(Users, on_delete=models.PROTECT)
-    pseudo = models.CharField(max_length=20, null = True, default="anonyme")
     create_date = models.DateTimeField(auto_now_add=True)
     article = models.ForeignKey(Articles, on_delete=models.PROTECT)
     commentaire = models.TextField()

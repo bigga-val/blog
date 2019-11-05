@@ -26,12 +26,12 @@
         <div class="col-sm-9 bg-link">
             <div class="row">
                 <div class="col-sm-12">
-                    {% if articles %}
+                    {% if r_article %}
                     <div class="title_article_active">
-                        <h3>{{ articles.title }}</h3>
+                        <h3>{{ r_article.title }}</h3>
                     </div>
                     <div class="meta_article_active">
-                        <span>Par <i><u>{{ articles.user.firstname | upper }}</u>, dans <u>{{ articles.categorie.name }}</u> </i></span>, <u>{{ articles.creation_date }}</u>
+                        <span>Par <i><u>{{ r_article.user.firstname | upper }}</u>, dans <u>{{ r_article.categorie.name }}</u> </i></span>, <u>{{ r_article.creation_date }}</u>
                     </div>
                     <div class="img_for_article">
                         <img src="{% static 'img/back1.jpg'%}" alt="img for article" class="rounded img-fluid">
@@ -39,41 +39,60 @@
                     </div>
                     <div class="body_article_active">
                         <p>
-                            {{ articles.content }}
+                            {{ r_article.content }}
                         </p>
                     </div>
 
                         <div class="card my-3">
-                            <div class="card-header"><span>UserName </span><i> a ecrit, il y a Datetime</i></div>
-                            <div class="card-body"><p> le body du commentaire</p></div>
+                            {% if commentaires %}
+                            <div class="card-header"><p class="text-secondary">{{ commentaires | length }} pensées pour cet article</p></div>
+                                {% for commentaire in commentaires %}
+                            <span class="bg-success mx-2"><span>{{ commentaire.user.firstname }}  </span><i> a ecrit depuis {{ commentaire.create_date | timesince }}</i></span>
+                            <span class="card-body"> {{ commentaire.commentaire }}</span>
+                                {% endfor %}
+                            {% else %}
                             <div>
-
-
-
+                                <p class="text-secondary">Soyez le premier poser votre commentaire</p>
                             </div>
+                            {% endif %}
                         </div>
 
                     <div class="border border-primary rounded py-3 px-3 mb-5">
-                        <form action="#" class="stacked">
-                            <label for="#" class="mr-sm-2">Laisser un commentaire</label>
-                            <input type="hidden" class="form-control" value="{{ articles.id }}">
-                            <input type="hidden" class="form-control" value="{{ articles.user }}">
-                            {# if request.session.name #}
-                            {# else on y revient plutard#}
-                            <input type="text" class="form-control my-2" placeholder="Tapez votre pseudo">
-                            <input type="text" class="form-control my-2" placeholder="Taper votre commentaire">
-                            <input type="submit" class="btn btn-primary my-2 ">
+                        <label for="#" class="mr-sm-2 ">Commentaire</label>
+                        <form action="/add_comment" class="stacked" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="article" class="form-control" value="{{ r_article.id }}">
+                            {% if request.session.name %}
+                            <p>Commenter en tant que {{ request.session.name }}</p>
+                            <input type="hidden" name="utilisateur" class="form-control" value="{{ request.session.id }}">
+                            <input type="textarea" name="commentaire" class="form-control my-2" placeholder="Taper votre commentaire">
+                            <input type="submit" value="commenter" class="btn btn-primary my-2 ">
+                            {% else %}
+                            <p class="class-danger">Veuillez vous connecter pour laisser un commentaire</p>
+                            <input type="textarea" name="commentaire" class="form-control my-2" placeholder="Taper votre commentaire">
+
+                            <a href="/login_page" name="connexion", type="button", class="btn btn-success"> Connexion</a>
+                            {% endif %}
+                                {% if messages %}
+                                    {% for msg in messages %}
+                                        <p class="text-danger">{{ msg }}</p>
+                                    {% endfor %}
+                                {% endif %}
+
                         </form>
                     </div>
                 </div>
                 {% endif %}
             </div>
         </div>
-        <div class="col-sm-3 bg-secondary">
+        <div class="col-sm-3">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="for_meteo">
-                        <a href="#">Meteo</a>
+                        <h3>Articles Récent</h3>
+                        {% for article in all %}
+                        <p class="text-link"><a href="/read_article/{{ article.id }}">- {{ article.title }}</a></p>
+                        {% endfor %}
                     </div>
                     <div class="for_maps">
                         <a href="#">Google Maps</a>

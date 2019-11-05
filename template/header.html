@@ -16,14 +16,14 @@
             </li-->
               {% if request.session.name %}
               <li class="nav-item">
-              <a class="nav-link bg-success rounded py-2" href="logout_user"> Deconnexion</a>
+              <a class="nav-link bg-success rounded py-2" href="/logout_user"> Deconnexion</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="#">Connected, {{ request.session.name }}</a>
             </li>
               {% else %}
                 <li class="nav-item">
-                  <a class="nav-link bg-success rounded py-2" href="login_page"> Connexion</a>
+                  <a class="nav-link bg-success rounded py-2" href="/login_page"> Connexion</a>
                 </li>
                   <li class="nav-item px-2">
                       <a class="nav-link bg-warning rounded font-weight-bold text-dark" href="register_page"> Sign in</a>

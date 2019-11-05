@@ -19,9 +19,12 @@ from . import views
 
 urlpatterns = [
     path('', views.index),
+    path('articles', views.articles),
     path('login_page', views.login_page),
     path('login_user', views.login_user),
     path('logout_user', views.logout),
     path('register_page', views.register_page),
     path('register', views.register_user),
+    path('add_comment', views.commenter),
+    path('read_article/<int:id>', views.read_article)
 ]
