@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
-from datetime import date
+from datetime import date, datetime
 from django import forms
 from django.contrib.auth.base_user import AbstractBaseUser
 
@@ -58,10 +58,15 @@ class Commentaires(models.Model):
         return str(self.id)
 
 class Newsletter(models.Model):
-    mail = models.EmailField()
+    mails = models.EmailField()
     inscription_date = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
 
 
     def __str__(self):
         return str(self.id)
+
+class Visitors(models.Model):
+    ip_address = models.GenericIPAddressField()
+    page_visited = models.TextField()
+    date_visite = models.DateTimeField(default=datetime.now)

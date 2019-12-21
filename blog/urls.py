@@ -19,12 +19,17 @@ from . import views
 
 urlpatterns = [
     path('', views.index),
-    path('articles', views.articles),
+    path('recent', views.articles),
+    path('read_article/<int:id>', views.read_article),
     path('login_page', views.login_page),
     path('login_user', views.login_user),
     path('logout_user', views.logout),
     path('register_page', views.register_page),
     path('register', views.register_user),
     path('add_comment', views.commenter),
-    path('read_article/<int:id>', views.read_article)
+    path('abonne', views.add_abonne),
+    path('create_abonne', views.create_abonne),
+    path('admin', views.main_dashboard),
+    path('create_article_page', views.create_article_page),
+
 ]

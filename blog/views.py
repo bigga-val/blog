@@ -1,18 +1,27 @@
 from django.shortcuts import render, redirect
+from django import http
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponse
-from .models import Articles, Users, Roles, Commentaires
+from .models import Articles, Users, Roles, Commentaires, Newsletter
 from datetime import date
 import sys
+from .functions import *
 
 def index(request):
     return render(request, "index.html")
 
 def articles(request):
     articles = Articles.objects.all()
-    return render(request, "articles.html", {"all": articles})
+    return render(request, "recent.html", {"all": articles})
+
+
+def read_article(request, id):
+    all_articles = Articles.objects.all()
+    article = Articles.objects.get(pk = id)
+    commentaire = Commentaires.objects.filter(article=article.id)
+    return render(request, 'articles.html', {'commentaires': commentaire, 'r_article': article, 'all': all_articles})
 
 def affiche_article(request):
     articles = Articles.objects.get(active = 1)
@@ -26,7 +35,7 @@ def register_user(request):
     #if request.method == "post":
     nom = request.POST['nomf']
     postnom = request.POST['postnom']
-    role = Roles.objects.get(pk = 5)
+    role = Roles.objects.get(pk = 1)
     genre = request.POST['sexe']
     mail = request.POST['email']
     phone = request.POST['telephone']
@@ -53,34 +62,37 @@ def register_user(request):
         user = Users(firstname=nom, lastname=postnom, role=role, gender=genre, email=mail, phone=phone, image=avatar,
                      adhesion_date=adhesion_date, password=password)
         user.save()
-        return redirect('/articles')
+        return redirect('/recent')
 
 
 def login_page(request):
     return render(request, 'login/login.html')
 
 def login_user(request):
-    try:
-        user = Users.objects.get(firstname = request.POST['usn'])
+    #try:
+    print(request.POST['usn'])
+    user = Users.objects.get(firstname = request.POST['usn'])
+    print(user.firstname)
+    if user.password == request.POST['pwd']:
+        request.session['id']= user.id
+        request.session['name']= user.firstname
+        login(request, user)
         print(user.firstname)
-        if user.password == request.POST['pwd']:
-            request.session['id']= user.id
-            request.session['name']= user.firstname
-            login(request, user)
-            print(user.firstname)
-            return redirect('articles')
-        else:
-            messages.add_message(request, messages.ERROR, "Utilisateur non reconnu")
-            return render(request, '/login/login.html')
-    except:
-
-        messages.add_message(request, messages.ERROR, "Coordonnees non trouvées, Veuillez vous inscrire")
-        return render(request, 'login/login.html')
+        print(user.password)
+        print(request.POST['pwd'])
+        return redirect('/recent')
+    else:
+        messages.add_message(request, messages.ERROR, "Utilisateur non reconnu")
+        return render(request, '/login/login.html')
+    #except:
+     #   messages.add_message(request, messages.ERROR, "Coordonnees non trouvées, Veuillez vous inscrire")
+      #  #return redirect('/articles')
+       # return render(request, 'login/login.html')
 
 @login_required(login_url="/login_page")
 def logout_user(request):
     logout(request)
-    return HttpResponse("articles.html")
+    return redirect("/recent")
 
 
 
@@ -92,7 +104,7 @@ def commenter(request):
         use = Users.objects.get(pk = request.POST['utilisateur'])
     except:
         messages.add_message(request, messages.ERROR, "veuillez vous connecter pour commenter {}".format(sys.exc_info()[0]))
-        return redirect("articles")
+        return redirect("recent")
 
     art = Articles.objects.get(pk = request.POST['article'])
 
@@ -100,10 +112,32 @@ def commenter(request):
     comment = Commentaires(user = use, article = art, commentaire = commentair)
     #print(comment)
     comment.save()
-    return redirect('articles')
+    return redirect('read_article/'+ request.POST['article'])
 
-def read_article(request, id):
-    all_articles = Articles.objects.all()
-    article = Articles.objects.get(pk = id)
-    commentaire = Commentaires.objects.filter(article=article.id)
-    return render(request, 'articles.html', {'commentaires': commentaire, 'r_article': article, 'all': all_articles})
+
+def add_abonne(request):
+    mail = request.POST['email']
+    email_user = Newsletter(mails =mail)
+    email_user.save()
+    return redirect("/")
+
+def create_abonne(request):
+    if request.method == 'POST':
+        mail = request.POST['mail']
+        Newsletter.objects.create(
+            mails = mail
+        )
+        return HttpResponse('')
+
+
+
+def main_dashboard(request):
+    articles = all_articles()
+    comments = all_commentaires()
+    abonnes = all_newsletters()
+    ip_address = http.HttpResponse(request.META["REMOTE_ADDR"])
+    ip_address = ip_address
+    return render(request, 'admin/main_dashboard.html', locals())
+
+def create_article_page(request):
+    return render(request, 'article/create_article_page.html')

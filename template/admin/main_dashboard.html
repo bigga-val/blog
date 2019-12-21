@@ -1,0 +1,113 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin || Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4 bg-danger">
+                kfdf
+            </div>
+            <div class="col-sm-4 bg-danger">
+                sdsds
+            </div>
+            <div class="col-sm-4 bg-danger">
+                dfdsfdsfdf
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="p-0 bg-primary ">
+                    <p>identité</p>
+                </div>
+                <div class="mt-lg-5">
+                    <ul class="list-group list-group-flush ">
+                        <li class="list-group-item"><a href="create_article_page">Nouvel article</a></li>
+                        <li class="list-group-item"><a href="#">Nouvel utilisateur</a></li>
+                        <li class="list-group-item"><a href="#">Options</a></li>
+                        <li class="list-group-item"><a href="#">Settings</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-10 bg-link">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-4 rounded-circle p-5">Affiche le nombre d'utilisateur en ligne
+
+                        </div>
+                        <div class="col-sm-4 bg-link rounded-bottom">Affiche le nombre de visites recentes sur le site</div>
+                        <div class="col-sm-4 rounded-bottom">
+                            <h4>Abonnés</h4>
+                            <ol class="list-group">
+
+                            {% for abonne in abonnes %}
+                                <li class="list-group-item">
+
+                                {{ abonne.mails }}
+                                    </li>
+                                {% endfor %}
+                                </ol>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 rounded-top bg-secondary">
+                            <h4>Articles</h4>
+                            <ol>
+                            {% for article in articles %}
+                                <li>
+                                    <a href="#" data-toggle="tooltip" title="Edit article" class="text-dark">
+                                {{ article.title }}
+                                        </a>
+                                    </li>
+                            {% endfor %}
+                                </ol>
+                        </div>
+                        <div class="col-sm-6 rounded-top" data-spy="scroll" bg-secondary ml-sm-1>
+                            <div><input type="text" id="commentFilter" class="rounded">
+                                <label for="commentFilter">Search</label>
+                            </div>
+                            <h4>Commentaires</h4>
+                            <ol id="comments_list">
+                                {% for comment in comments %}
+                                    <li>
+                                        <a href="#" class="text-dark" data-toggle="tooltip" title="Edit article" >{{ comment.commentaire }}</a> by
+                                        <a href="#" data-toggle="tooltip" title="View user">{{ comment.user.firstname }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="row bg-link">
+                        <div class="col-sm-2 bg-danger" >
+                            {% for ip in ip_address %}
+                                <span>{{ ip }}</span>
+                            {% endfor %}
+
+                        </div>
+                        <div class="col-sm-4 bg-link" >sdfdsf</div>
+                        <div class="col-sm-4 bg-primary" >qdsfqdf</div>
+                        <div class="col-sm-2 bg-info" >qsdfqdf</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script>
+$(document).ready(function(){
+    $("#commentFilter").on("keyup", function(){
+        var value = $(this).val().toLowerCase();
+        console.log(value);
+        $("#comments_list li").filter(function(){
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+    </script>
+</body>
+</html>

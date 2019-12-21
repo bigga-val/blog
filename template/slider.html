@@ -1,12 +1,8 @@
 {% load static %}
-<div class="container">
+<div class="container center">
     <div class="row">
-
         <!--div class="col-sm-12 bg-danger"-->
-
-
           <div id="demo" class="carousel slide" data-ride="carousel">
-
             <!-- Indicators -->
             <ul class="carousel-indicators">
               <li data-target="#demo" data-slide-to="0" class="active"></li>
@@ -17,18 +13,21 @@
             <!-- The slideshow -->
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="{% static 'img/nes.PNG' %}" alt="Los Angeles">
+                <img src="{% static 'img/nes.JPG' %}" alt="Los Angeles">
                 <div class="carousel-caption">
                   <h3>Titre caption</h3>
-                  <p>Paragraphe captionk vkjvkjdf knv dfhkjfd</p>
+                  <p class="text-danger">Paragraphe captionk for de the first</p>
                 </div>
               </div>
-              <div class="carousel-item bg-primary">
-                <img src="{% static 'img/car1.jpg' %}" alt="Chicago">
-                <p>dklffjkdfjkf</p>
+              <div class="carousel-item">
+                <img src="{% static 'img/car1.JPG' %}" alt="Chicago">
+                <div class="carousel-caption">
+                <h3>Fuyant de la route</h3>
+                <p>Pourquoi fuir meme devant le danger venant?</p>
+                  </div>
               </div>
-              <div class="carousel-item bg-info">
-                <img src="{% static 'img/back1.jpg' %}" alt="New York">
+              <div class="carousel-item">
+                <img src="{% static 'img/back1.JPG' %}" alt="New York">
                 <div class="carousel-caption">
                   <h3>following carousel item</h3>
                   <p>paragraph</p>

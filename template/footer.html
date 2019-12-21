@@ -3,12 +3,13 @@
         <div class="col">
             <!--div-- class="col-sm-4">Newsletter</div-->
             <h4 class="text-center">Newsletter</h4>
-            <form action="#">
+            <form method="post" id="form_url">
+                {% csrf_token %}
                 <div class="form-group">
                     <label for="email_letter">*Email:</label>
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control">
+                    <input type="email" name="mail" id="mail"  class="form-control">
                     <p class="pt-2">En appuyant sur <span class="text-white bg-dark">S'abonner</span>, vous acceptez de recevoir
                         des notifications par mail à chaque nouvel article apparu sur promoshop.com
                     </p>

@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 <div class="container">
     <div class="row">
         <!--div class="col-sm-3 bg-dark">
@@ -25,6 +26,7 @@
         </div-->
         <div class="col-sm-9 bg-link">
             <div class="row">
+                <!-- Beggin article -->
                 <div class="col-sm-12">
                     {% if r_article %}
                     <div class="title_article_active">
@@ -42,12 +44,14 @@
                             {{ r_article.content }}
                         </p>
                     </div>
-
+                        <!-- Begin comments part -->
                         <div class="card my-3">
                             {% if commentaires %}
                             <div class="card-header"><p class="text-secondary">{{ commentaires | length }} pensées pour cet article</p></div>
                                 {% for commentaire in commentaires %}
-                            <span class="bg-success mx-2"><span>{{ commentaire.user.firstname }}  </span><i> a ecrit depuis {{ commentaire.create_date | timesince }}</i></span>
+                            <!-- le filtre de date peut être timesince ou naturaltime ou encore naturalday -->
+                            <span class="bg-success mx-2"><span>{{ commentaire.user.firstname }}  </span><i> a ecrit depuis {{ commentaire.create_date | naturalday }}</i></span>
+
                             <span class="card-body"> {{ commentaire.commentaire }}</span>
                                 {% endfor %}
                             {% else %}

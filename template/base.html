@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,5 +37,21 @@
     <script src="{% static 'js/modal.js' %}"></script>
     <script src="{% static 'js/popover.js' %}"></script>
     <script src="{% static 'js/scrollspy.js' %}"></script>
+        <script type="text/javascript">
+            $(document).on('submit', '#form_abonnement', function(e){
+                e.preventDefault();
+                $.ajax({
+                type:'POST',
+                url:'/create_abonne',
+                data:{
+                    mail:$('#mail').val()
+                    //csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+                },
+                success:function(){
+                    alert("abonne ajoute");
+                }
+               });
+            });
+        </script>
 </body>
 </html>
