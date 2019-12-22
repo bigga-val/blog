@@ -39,9 +39,9 @@ class Articles(models.Model):
     categorie = models.ForeignKey(Categories, on_delete=models.PROTECT, default=1)
     title = models.CharField(max_length=100)
     content = models.TextField()
-    image_article = models.ImageField
+    image_article = models.ImageField(upload_to="")
     creation_date = models.DateTimeField(auto_now_add=True)
-    type = models.CharField(max_length=10, default = 'opened') #opened or closed
+    state = models.CharField(max_length=10, default = 'opened') #opened or closed
     active = models.BooleanField(default=True)
 
     def __str__(self):

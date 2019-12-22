@@ -99,15 +99,7 @@
     </div>
     <script src="{% static 'js/jquery.js' %}"></script>
     <script>
-$(document).ready(function(){
-    $("#commentFilter").on("keyup", function(){
-        var value = $(this).val().toLowerCase();
-        console.log(value);
-        $("#comments_list li").filter(function(){
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
+
     </script>
 </body>
 </html>

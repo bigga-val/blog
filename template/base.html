@@ -41,16 +41,16 @@
             $(document).on('submit', '#form_abonnement', function(e){
                 e.preventDefault();
                 $.ajax({
-                type:'POST',
-                url:'/create_abonne',
-                data:{
-                    mail:$('#mail').val()
-                    //csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
-                },
-                success:function(){
-                    alert("abonne ajoute");
-                }
-               });
+                    type:'post',
+                    url:'create_abonne',
+                    data:{
+                        mail : $('#mail').val(),
+                        csrfmiddlewaretoken : $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    success:function(){
+                        alert('vous etes abonne');
+                    }
+                });
             });
         </script>
 </body>
