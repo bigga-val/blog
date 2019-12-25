@@ -37,21 +37,22 @@
     <script src="{% static 'js/modal.js' %}"></script>
     <script src="{% static 'js/popover.js' %}"></script>
     <script src="{% static 'js/scrollspy.js' %}"></script>
+    <script src="{% static 'js/jscript.js' %}"></script>
         <script type="text/javascript">
-            $(document).on('submit', '#form_abonnement', function(e){
-                e.preventDefault();
-                $.ajax({
-                    type:'post',
-                    url:'create_abonne',
-                    data:{
-                        mail : $('#mail').val(),
-                        csrfmiddlewaretoken : $('input[name=csrfmiddlewaretoken]').val()
-                    },
-                    success:function(){
-                        alert('vous etes abonne');
-                    }
-                });
-            });
+            //$(document).on('submit', '#form_abonnement', function(e){
+                //e.preventDefault();
+                //$.ajax({
+                //    type:'post',
+                //    url:'create_abonne',
+                //    data:{
+                //        mail : $('#mail').val(),
+                //        csrfmiddlewaretoken : $('input[name=csrfmiddlewaretoken]').val()
+                //    },
+                //    success:function(){
+                //        alert('vous etes abonne');
+                //    }
+              //  });
+            //});
         </script>
 </body>
 </html>

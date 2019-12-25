@@ -42,6 +42,7 @@ class Articles(models.Model):
     image_article = models.ImageField(upload_to="")
     creation_date = models.DateTimeField(auto_now_add=True)
     state = models.CharField(max_length=10, default = 'opened') #opened or closed
+    sendable = models.BooleanField(default=True)
     active = models.BooleanField(default=True)
 
     def __str__(self):

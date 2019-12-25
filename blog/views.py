@@ -139,5 +139,64 @@ def main_dashboard(request):
     ip_address = ip_address
     return render(request, 'admin/main_dashboard.html', locals())
 
+
+
 def create_article_page(request):
-    return render(request, 'article/create_article_page.html')
+    categories = all_categories()
+    return render(request, 'article/create_article_page.html', locals())
+
+
+
+def create_article(request):
+    if request.method == "POST":
+        if Users.objects.get(pk=request.POST['user']):
+            user = Users.objects.get(pk=request.POST['user'])
+        else:
+            print('utilisateur non trouve')
+
+        if Categories.objects.get(pk=request.POST['category']):
+            category = Categories.objects.get(pk=request.POST['category'])
+        else:
+            print('categorie non trouve')
+        title = request.POST['title']
+        content = request.POST['content']
+        image = request.POST['image']
+        state = request.POST['state']
+
+
+        title = title,
+        content = content,
+        image = image,
+        state = state,
+        return HttpResponse('')
+
+def create_art(request):
+
+
+
+    if request.method == "POST":
+        #handling the user input
+        if Users.objects.get(pk=request.POST['usert']):
+            user = Users.objects.get(pk=request.POST['usert'])
+        else:
+            print('utilisateur non trouve')
+        #handling the category input
+        if Categories.objects.get(pk=request.POST['category']):
+            category = Categories.objects.get(pk=request.POST['category'])
+        else:
+            print('categorie non trouve')
+        # handling the sendable input
+        if request.POST.get("sendable"):
+            sendable = True
+        else:
+            sendable = False
+        #other input
+        title = request.POST['title']
+        content = request.POST['content']
+        state = request.POST['state']
+
+
+    else:
+        print("aucune donnée transmise")
+    print(title, content, user, category, state, sendable)
+    return redirect("/create_article_page")

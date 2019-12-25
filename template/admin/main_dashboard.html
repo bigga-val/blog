@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +13,11 @@
                 kfdf
             </div>
             <div class="col-sm-4 bg-danger">
-                sdsds
+                {% if request.session.name %}
+                    <p>{{request.session.name}}</p>
+                {% else %}
+                    <p>Aucune session ouverte</p>
+                {% endif %}
             </div>
             <div class="col-sm-4 bg-danger">
                 dfdsfdsfdf

@@ -10,36 +10,38 @@
 <body>
 <div class="container">
     <div class="col-lg-4">
-        <form method="post">
+        <form method="post" id="form_new_article" action="create">
             {% csrf_token %}
-            <div class="form-group">
-                <input type="text" class="form-control rounded" placeholder="user">
-                
-            </div>
+            {% if request.session.name %}
+                <input type="text" value="{{ request.session.id }}" name="usert" id="usert" class="form-control rounded" placeholder="{{ request.session.id }}">
+            {% else %}
+                <span class="text-danger">Aucune session ouverte pour vous</span>
+            {% endif %}
             <div class="form-group">
                 <label for="">Titre de l'article</label>
-                <input type="text" class="form-control rounded" value="Entrez le titre">
+                <input name="title" id="title" type="text" class="form-control rounded" placeholder="Entrez le titre de l'article">
             </div>
             <div class="form-group">
-                <label for="paragraphe">Entrez le paragraphe de l'article</label>
-                <textarea name="paragraphe" id="paragraphe" cols="100" rows="20"></textarea>
+                <label for="content">Entrez le paragraphe de l'article</label>
+                <textarea name="content" id="content" cols="100" rows="20"></textarea>
             </div>
             <div class="form-group">
-                <label for="categorie">Que faire de l'article?(définir l'état)</label>
-                <select name="categorie" id="categorie">
+                <label for="state">Que faire de l'article?(définir l'état)</label>
+                <select name="state" id="state">
                     <option value="opened">Enregistrer et publier</option>
                     <option value="closed">Enregistrer sans publier</option>
                     <option value="draft">Mettre au brouillon</option>
                 </select>
             </div><div class="form-group">
-            <input type="checkbox" name="newsletterable" id="newsletterable" class="" checked >
-            <label for="newsletterable">Envoyer cet article aux abonnés par email</label>
-
+            <input type="checkbox" name="sendable" id="sendable" class="" >
+            <label for="sendable">Envoyer cet article aux abonnés par email</label>
             </div>
             <div class="form-group">
-                <label for="categorie">Catégorie de l'article</label>
-                <select name="categorie" id="" class="form-control">
-                    <option value=""></option>
+                <label for="category">Catégorie de l'article</label>
+                <select name="category" id="category" class="form-control">
+                    {% for categorie in categories %}
+                        <option value="{{ categorie.id }}">{{ categorie.name }}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="form-group">
@@ -48,5 +50,6 @@
         </form>
     </div>
 </div>
+<script src="{% static 'js/jquery.js' %}"></script>
 </body>
 </html>

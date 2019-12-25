@@ -31,5 +31,5 @@ urlpatterns = [
     path('create_abonne', views.create_abonne),
     path('admin', views.main_dashboard),
     path('create_article_page', views.create_article_page),
-
+    path('create', views.create_art),
 ]
