@@ -39,7 +39,7 @@ class Articles(models.Model):
     categorie = models.ForeignKey(Categories, on_delete=models.PROTECT, default=1)
     title = models.CharField(max_length=100)
     content = models.TextField()
-    image_article = models.ImageField(upload_to="")
+    image_article = models.ImageField(upload_to="static/img_articles")
     creation_date = models.DateTimeField(auto_now_add=True)
     state = models.CharField(max_length=10, default = 'opened') #opened or closed
     sendable = models.BooleanField(default=True)

@@ -194,9 +194,21 @@ def create_art(request):
         title = request.POST['title']
         content = request.POST['content']
         state = request.POST['state']
-
+        imaget = request.POST['imaget']
 
     else:
         print("aucune donnée transmise")
     print(title, content, user, category, state, sendable)
+    Articles.objects.create(
+        user = user,
+        title = title,
+        content = content,
+        categorie = category,
+        state = state,
+        sendable = sendable,
+        image_article = imaget
+    )
     return redirect("/create_article_page")
+
+
+
