@@ -7,6 +7,14 @@ def all_articles():
     articles = Articles.objects.all()
     return articles
 
+def active_articles():
+    articles = Articles.objects.filter(active=True).all()
+    return articles
+
+def disactive_articles():
+    articles = Articles.objects.filter(active=False).all()
+    return articles
+
 def all_users():
     users = Users.objects.all()
     return users

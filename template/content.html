@@ -36,9 +36,8 @@
                         <span>Par <i><u>{{ r_article.user.firstname | upper }}</u>, dans <u>{{ r_article.categorie.name }}</u> </i></span>, <u>{{ r_article.creation_date }}</u>
                     </div>
                     <div class="img_for_article">
-                        <img src="{% static 'img/back1.jpg'%}" alt="img for article" class="rounded img-fluid">
+                        <div><img src="{{ r_article.image_article.url }}" alt="image d'avant plan" class="img-fluid"></div>
                         <p class="legend">legende de l'image</p>
-                        <div>{{ r_article.image_article }}</div>
                     </div>
                     <div class="body_article_active">
                         <p>
@@ -73,7 +72,7 @@
                             <input type="textarea" name="commentaire" class="form-control my-2" placeholder="Taper votre commentaire">
                             <input type="submit" value="commenter" class="btn btn-primary my-2 ">
                             {% else %}
-                            <p class="class-danger">Veuillez vous connecter pour laisser un commentaire</p>
+                            <p class="text-danger">Veuillez vous connecter pour laisser un commentaire</p>
                             <input type="textarea" name="commentaire" class="form-control my-2" placeholder="Taper votre commentaire">
 
                             <a href="/login_page" name="connexion", type="button", class="btn btn-success"> Connexion</a>
@@ -96,7 +95,7 @@
                     <div class="for_meteo">
                         <h3>Articles Récent</h3>
                         {% for article in all %}
-                        <p class="text-link"><a href="/read_article/{{ article.id }}">- {{ article.title }}</a></p>
+                        <p class="text-link"><a href="/read_article/{{ article.id }}"> - {{ article.title }}</a></p>
                         {% endfor %}
                     </div>
                     <div class="for_maps">

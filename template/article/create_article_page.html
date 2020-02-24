@@ -10,7 +10,7 @@
 <body>
 <div class="container">
     <div class="col-lg-4">
-        <form method="post" id="form_new_article" action="create">
+        <form method="post" id="form_new_article" enctype="multipart/form-data" action="create">
             {% csrf_token %}
             {% if request.session.name %}
                 <input type="text" value="{{ request.session.id }}" name="usert" id="usert" class="form-control rounded" placeholder="{{ request.session.id }}">
@@ -22,8 +22,8 @@
                 <input name="title" id="title" type="text" class="form-control rounded" placeholder="Entrez le titre de l'article">
             </div>
             <div class="form-group">
-                <label for="imaget">Image d'avant-plan</label>
-                <input type="file" capture="user" class="form-control" name="imaget" id="imaget" placeholder="Choisir l'immage" accept="image/*">
+                <label for="imagette">Image d'avant-plan</label>
+                <input type="file" capture="user" class="form-control" name="imagette" id="imagette" placeholder="Choisir l'immage" accept="image/*">
             </div>
             <div class="form-group">
                 <label for="content">Entrez le paragraphe de l'article</label>

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Admin || Dashboard</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
 </head>
 <body>
     <div class="container-fluid">
@@ -40,36 +41,53 @@
             <div class="col-sm-10 bg-link">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-4 rounded-circle p-5">Affiche le nombre d'utilisateur en ligne
+                        <div class="col-sm-8 p-5">
+                             <h4>Articles</h4>
+                            <table class="table table-stripped">
+                                <tr>
+                                    <th>Titres</th>
+                                    <th><span class="fa fa-flag"></span>Actions</th>
+                                </tr>
+                            {% for article in active_article %}
+                                <tr>
+                                    <td href="#">
+                                        {{ article.title }}
+                                        </td>
+                                    <td href="">
+                                        <a href="edit_article_page/{{article.id}}" class="text-primary">Modifier</a>
 
+                                        <a href="corbeille_article/{{article.id}}" class="text-danger">Corbeille</a></td>
+                                    </tr>
+                            {% endfor %}
+                                </table>
                         </div>
-                        <div class="col-sm-4 bg-link rounded-bottom">Affiche le nombre de visites recentes sur le site</div>
-                        <div class="col-sm-4 rounded-bottom">
-                            <h4>Abonnés</h4>
-                            <ol class="list-group">
 
-                            {% for abonne in abonnes %}
-                                <li class="list-group-item">
-
-                                {{ abonne.mails }}
-                                    </li>
-                                {% endfor %}
-                                </ol>
+                        <div class="col-sm-4 rounded-bottom pb-2 overflow-auto h-50 bg-secondary">
+                                <h4>Abonnés</h4>
+                                <ol class="list-group">
+                                {% for abonne in abonnes %}
+                                    <li class="list-group-item">
+                                    {{ abonne.mails }}
+                                        </li>
+                                    {% endfor %}
+                                    </ol>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6 rounded-top bg-secondary">
-                            <h4>Articles</h4>
-                            <ol>
-                            {% for article in articles %}
-                                <li>
-                                    <a href="#" data-toggle="tooltip" title="Edit article" class="text-dark">
-                                {{ article.title }}
-                                        </a>
-                                    </li>
-                            {% endfor %}
-                                </ol>
+                        <div class="col-sm-6 rounded-top">
+
+                                <table class="table table-hover">
+                                    <caption>Corbeille</caption>
+                                    {% for disact in disactive_article %}
+                                    <tr>
+                                        <td><a href="" class="text-secondary">{{disact.title}}</a></td>
+                                        <td><a href="restore/{{disact.id}}" class="text-primary">Restore</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+
                         </div>
+                        &#xf003;
                         <div class="col-sm-6 rounded-top" data-spy="scroll" bg-secondary ml-sm-1>
                             <div><input type="text" id="commentFilter" class="rounded">
                                 <label for="commentFilter">Search</label>

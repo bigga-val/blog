@@ -16,6 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
+
+
+
 
 urlpatterns = [
     path('', views.index),
@@ -32,4 +37,8 @@ urlpatterns = [
     path('admin', views.main_dashboard),
     path('create_article_page', views.create_article_page),
     path('create', views.create_art),
-]
+    path('edit_article_page/<int:id>', views.edit_article_page),
+    path('edit_article/<int:id>', views.edit_article),
+    path('corbeille_article/<int:id>', views.corbeille_article),
+    path('restore/<int:id>', views.restore_article),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

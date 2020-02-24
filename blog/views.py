@@ -7,25 +7,24 @@ from django.http import HttpResponse
 from .models import Articles, Users, Roles, Commentaires, Newsletter
 from datetime import date
 import sys
+from django.core.files import *
 from .functions import *
 
 def index(request):
     return render(request, "index.html")
 
 def articles(request):
-    articles = Articles.objects.all()
+    #articles = Articles.objects.all()
+    articles = active_articles()
     return render(request, "recent.html", {"all": articles})
 
 
 def read_article(request, id):
-    all_articles = Articles.objects.all()
+    all_articles = active_articles()
     article = Articles.objects.get(pk = id)
     commentaire = Commentaires.objects.filter(article=article.id)
     return render(request, 'articles.html', {'commentaires': commentaire, 'r_article': article, 'all': all_articles})
 
-def affiche_article(request):
-    articles = Articles.objects.get(active = 1)
-    print(articles)
 
 def register_page(request):
     return render(request, 'login/register_page.html')
@@ -132,7 +131,8 @@ def create_abonne(request):
 
 
 def main_dashboard(request):
-    articles = all_articles()
+    active_article = active_articles()
+    disactive_article = disactive_articles()
     comments = all_commentaires()
     abonnes = all_newsletters()
     ip_address = http.HttpResponse(request.META["REMOTE_ADDR"])
@@ -160,7 +160,7 @@ def create_article(request):
             print('categorie non trouve')
         title = request.POST['title']
         content = request.POST['content']
-        image = request.POST['image']
+        image = request.FILES['image']
         state = request.POST['state']
 
 
@@ -171,9 +171,6 @@ def create_article(request):
         return HttpResponse('')
 
 def create_art(request):
-
-
-
     if request.method == "POST":
         #handling the user input
         if Users.objects.get(pk=request.POST['usert']):
@@ -194,11 +191,11 @@ def create_art(request):
         title = request.POST['title']
         content = request.POST['content']
         state = request.POST['state']
-        imaget = request.POST['imaget']
-
+        imagette = request.FILES['imagette']
     else:
         print("aucune donnée transmise")
     print(title, content, user, category, state, sendable)
+    print(imagette)
     Articles.objects.create(
         user = user,
         title = title,
@@ -206,9 +203,45 @@ def create_art(request):
         categorie = category,
         state = state,
         sendable = sendable,
-        image_article = imaget
+        image_article = imagette
     )
     return redirect("/create_article_page")
 
+def edit_article_page(request, id):
+    get_article = Articles.objects.get(pk=id)
+    get_category = all_categories
+    return render(request, 'article/edit_article_page.html', locals())
 
+def edit_article(request, id):
+    article = Articles.objects.get(pk=id)
+    if request.method == "POST":
+        article.user = Users.objects.get(pk=request.POST['user'])
+        article.title = request.POST['title']
+        article.content = request.POST['content']
+        article.category = request.POST['category']
+        article.state = request.POST['state']
+        if request.POST.get("sendable"):
+            article.sendable = True
+        else:
+            article.sendable= False
 
+        if request.POST['imaget']:
+            print("image fournie")
+            article.image_article = request.FILES['imaget']
+        else:
+            print("image originale")
+            article.image_article = Articles.objects.get(pk=id).image_article
+        article.save()
+    return redirect("/admin")
+
+def corbeille_article(request, id):
+    article = Articles.objects.get(pk=id)
+    article.active = False
+    article.save()
+    return redirect("/admin")
+
+def restore_article(request, id):
+    article = Articles.objects.get(pk=id)
+    article.active = True
+    article.save()
+    return redirect("/admin")
